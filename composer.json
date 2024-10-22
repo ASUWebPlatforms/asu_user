@@ -5,6 +5,6 @@
     "license": "MIT",
     "require": {
         "asuwebplatforms/asu_config_utility": "^2.14",
-        "drupal/cas": "2.3.2"
+        "drupal/cas": "^2.3.2"
     }
 }
