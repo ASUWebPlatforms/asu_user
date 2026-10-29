@@ -17,9 +17,16 @@ class UserPreLoginSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
+    // Cas 2.x dispatches the pre-login event only under the 'cas.pre_login'
+    // name (CasHelper::EVENT_PRE_LOGIN). cas 3.0 dispatches it under both that
+    // name and the event class, and cas 3.1 removes the constant in favor of
+    // the class name. Subscribe to exactly one so the listener runs once.
+    $event_name = defined(CasHelper::class . '::EVENT_PRE_LOGIN')
+      ? 'cas.pre_login'
+      : CasPreLoginEvent::class;
+
     return [
-      // Static class constant => method on this class.
-      CasHelper::EVENT_PRE_LOGIN => 'onUserPreLogin',
+      $event_name => 'onUserPreLogin',
     ];
   }
 
@@ -27,7 +34,6 @@ class UserPreLoginSubscriber implements EventSubscriberInterface {
    * Subscribe to the user login event dispatched.
    *
    * @param \Drupal\cas\Event\CasPreLoginEvent $event
-   *
    */
   public function onUserPreLogin(CasPreLoginEvent $event) {
     $account = $event->getAccount();
