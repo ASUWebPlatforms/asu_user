@@ -4,7 +4,7 @@
     "type": "drupal-module",
     "license": "MIT",
     "require": {
-        "asuwebplatforms/asu_config_utility": "^2.14",
+        "asuwebplatforms/asu_config_utility": "^2.14 || dev-main",
         "drupal/cas": "^2.3.2 || ^3.0"
     }
 }
